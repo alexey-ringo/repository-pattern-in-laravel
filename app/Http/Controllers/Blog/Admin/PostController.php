@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogCategory;
+use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
 use Illuminate\Http\Request;
 
 /**
  * Управление статьями блога
- * 
+ *
  * @package App\Http\Controllers\Blog\Admin
  */
 class PostController extends BaseController
@@ -18,12 +20,19 @@ class PostController extends BaseController
      * @var BlogPostRepository
      */
     private $blogPostRepository;
-    
-    public function __construct() 
+
+    /**
+     * @var BlogCategoryRepository
+     */
+    private $blogCategoryRepository;
+
+    public function __construct()
     {
         parent::__construct();
-        
+
         $this->blogPostRepository = app(BlogPostRepository::class);
+
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
     }
     /**
      * Display a listing of the resource.
@@ -33,7 +42,7 @@ class PostController extends BaseController
     public function index()
     {
         $paginator = $this->blogPostRepository->getAllWithPaginate();
-        
+
         return view('blog.admin.posts.index', compact('paginator'));
     }
 
@@ -77,7 +86,15 @@ class PostController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $item = $this->blogPostRepository->getEdit($id);
+
+        if(empty($item)) {
+            abort(404);
+        }
+
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+
+        return view('blog.admin.posts.edit', compact('item', 'categoryList'));
     }
 
     /**

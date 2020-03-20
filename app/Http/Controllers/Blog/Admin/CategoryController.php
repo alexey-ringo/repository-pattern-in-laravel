@@ -12,7 +12,7 @@ use Str;
 
 /**
  * Category management class
- * 
+ *
  * @package App\Http\Controllers\Blog\Admin
  */
 class CategoryController extends BaseController
@@ -35,7 +35,7 @@ class CategoryController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
 
         return view ('blog.admin.categories.index', compact('paginator'));
@@ -47,8 +47,8 @@ class CategoryController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
-        $item = new BlogCategory();        
+    {
+        $item = new BlogCategory();
         $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.categories.edit',
@@ -105,7 +105,7 @@ class CategoryController extends BaseController
     public function edit($id)
     {
         $item = $this->blogCategoryRepository->getEdit($id);
-        
+
         if(empty($item)) {
             abort(404);
         }
@@ -123,7 +123,7 @@ class CategoryController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function update(BlogCategoryUpdateRequest $request, $id)
-    {                
+    {
         $item = $this->blogCategoryRepository->getEdit($id);
 
         if(empty($item)) {

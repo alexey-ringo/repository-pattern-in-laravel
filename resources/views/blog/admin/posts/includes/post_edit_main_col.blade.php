@@ -1,0 +1,89 @@
+@php
+    /** @var \App\Models\BlogPost $item */
+    /** @var \Illuminate\Support\Collection $$categoryList */
+@endphp
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="ard-header">
+                @if($item->is_published)
+                    Опубликовано
+                @else
+                    Черновик
+                @endif
+            </div>
+            <div class="card-body">
+                <div class="card-title"></div>
+                <div class="cart-subtitle mb-2 text-muted"></div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#maindata" role="tab">Основные данные</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#maindata" role="tab">Доп. данные</a>
+                        </li>
+                    </ul>
+                    <br>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="maindata" role="tabpanel">
+                        <div class="form-group">
+                            <label for="title">Заголовок</label>
+                            <input name="title" value="{{ $item->title }}"
+                                   id="title"
+                                   type="text"
+                                   class="form-control"
+                                   minlength="3"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Описание</label>
+                            <textarea name="description"
+                                      id="description"
+                                      class="form-control"
+                                      rows="3">
+                                      {{ old('description', $item->description) }}
+                            </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="slug">Статья</label>
+                            <input name="slug" value="{{ $item->slug }}"
+                                   id="slug"
+                                   type="text"
+                                   class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title">Заголовок</label>
+                            <select name="parent_id"
+                                    id="parent_id"
+                                    class="form-control"
+                                    placeholder="Выберите категорию"
+                                    required>
+                                @foreach($categoryList as $categoryOption)
+                                    <option value="{{ $categoryOption->id }}"
+                                        @if($categoryOption->id == $item->parent_id) selected @endif
+                                    >
+                                    {{--  {{ $categoryOption->id }}. {{ $categoryOption->title }}  --}}
+                                    {{ $categoryOption->id_title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Описание</label>
+                            <textarea name="description"
+                                      id="description"
+                                      class="form-control"
+                                      rows="3">
+                                      {{ old('description', $item->description) }}
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
