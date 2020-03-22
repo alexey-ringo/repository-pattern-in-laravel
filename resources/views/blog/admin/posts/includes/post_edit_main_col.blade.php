@@ -5,7 +5,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
-            <div class="ard-header">
+            <div class="card-header">
                 @if($item->is_published)
                     Опубликовано
                 @else
@@ -20,7 +20,7 @@
                             <a class="nav-link active" data-toggle="tab" href="#maindata" role="tab">Основные данные</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#maindata" role="tab">Доп. данные</a>
+                            <a class="nav-link" data-toggle="tab" href="#adddata" role="tab">Доп. данные</a>
                         </li>
                     </ul>
                     <br>
@@ -37,33 +37,29 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Описание</label>
-                            <textarea name="description"
-                                      id="description"
+                            <label for="content_raw">Статья</label>
+                            <textarea name="content_raw"
+                                      id="content_raw"
                                       class="form-control"
-                                      rows="3">
-                                      {{ old('description', $item->description) }}
+                                      rows="20">
+                                      {{ old('content_raw', $item->content_raw) }}
                             </textarea>
                         </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="adddata" role="tabpanel">
 
                         <div class="form-group">
-                            <label for="slug">Статья</label>
-                            <input name="slug" value="{{ $item->slug }}"
-                                   id="slug"
-                                   type="text"
-                                   class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="title">Заголовок</label>
-                            <select name="parent_id"
-                                    id="parent_id"
+                            <label for="category_id">Категория</label>
+                            <select name="category_id"
+                                    id="category_id"
                                     class="form-control"
                                     placeholder="Выберите категорию"
                                     required>
                                 @foreach($categoryList as $categoryOption)
                                     <option value="{{ $categoryOption->id }}"
-                                        @if($categoryOption->id == $item->parent_id) selected @endif
+                                        @if($categoryOption->id == $item->category_id) selected @endif
                                     >
                                     {{--  {{ $categoryOption->id }}. {{ $categoryOption->title }}  --}}
                                     {{ $categoryOption->id_title }}
@@ -73,13 +69,37 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Описание</label>
-                            <textarea name="description"
-                                      id="description"
+                            <label for="slug">Идентификатор</label>
+                            <input name="slug" value="{{ $item->slug }}"
+                                   id="slug"
+                                   type="text"
+                                   class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="excerpt">Выдержка</label>
+                            <textarea name="excerpt"
+                                      id="excerpt"
                                       class="form-control"
                                       rows="3">
-                                      {{ old('description', $item->description) }}
+                                      {{ old('excerpt', $item->excerpt) }}
                             </textarea>
+                        </div>
+
+                        <div class="form-check">
+                            <input name="is_published"
+                                   type="hidden"
+                                   value="0">
+
+                            <input name="is_published"
+                                   type="checkbox"
+                                   class="form-check-input"
+                                   value="1"
+                                   @if($item->is_published)
+                                   checked="checked"
+                                   @endif
+                                   >
+                            <label class="form-check-label" for="is_published">Опубликовано</label>
                         </div>
                     </div>
                 </div>
