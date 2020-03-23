@@ -9,12 +9,11 @@ class BlogCategory extends Model
 {
     use SoftDeletes;
 
-    protected $fillable
-        = [
-            'title',
-            'slug',
-            'parent_id',
-            'description',
-        ]; 
+    protected $fillable = [
+        'title',
+        'slug',
+        'parent_id',
+        'description',
+    ];
 
 }

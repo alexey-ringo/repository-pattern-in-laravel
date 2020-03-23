@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="lara-repo" uuid="febaabd3-81e9-4f9a-8c8e-db1c6b20a5ee">
+    <data-source source="LOCAL" name="lara-repo" uuid="667be273-bc1c-47ff-8aca-33985f45164a">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
